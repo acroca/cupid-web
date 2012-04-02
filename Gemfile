@@ -21,7 +21,7 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 end
 
-group :test do
+group :development, :test do
   gem 'rspec-rails'
 end
 
