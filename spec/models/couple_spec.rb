@@ -67,6 +67,15 @@ describe Couple do
       FactoryGirl.create(:couple, pretender_a: pretender_1, pretender_b: pretender_2, iterations_ago: 3)
 
       Couple.all_iterations_ago[pretender_1.id].should == {pretender_2.id => 1}
+      Couple.all_iterations_ago[pretender_2.id].should == {pretender_1.id => 1}
+    end
+
+    it 'gets the min value for the permutation' do
+      FactoryGirl.create(:couple, pretender_a: pretender_1, pretender_b: pretender_2, iterations_ago: 1)
+      FactoryGirl.create(:couple, pretender_a: pretender_2, pretender_b: pretender_1, iterations_ago: 4)
+
+      Couple.all_iterations_ago[pretender_1.id].should == {pretender_2.id => 1}
+      Couple.all_iterations_ago[pretender_2.id].should == {pretender_1.id => 1}
     end
   end
 end

@@ -19,11 +19,11 @@ class Couple < ActiveRecord::Base
     Thread.current["all_iterations_ago"] = last_couples.all.inject({}) do |acc, couple|
       acc[couple.pretender_a_id] ||= {}
       acc[couple.pretender_b_id] ||= {}
-      acc[couple.pretender_a_id][couple.pretender_b_id] ||= {}
-      acc[couple.pretender_b_id][couple.pretender_a_id] ||= {}
 
-      acc[couple.pretender_a_id][couple.pretender_b_id] = couple.iterations_ago
-      acc[couple.pretender_b_id][couple.pretender_a_id] = couple.iterations_ago
+      if acc[couple.pretender_a_id][couple.pretender_b_id].nil? || couple.iterations_ago < acc[couple.pretender_a_id][couple.pretender_b_id].to_i
+        acc[couple.pretender_a_id][couple.pretender_b_id] = couple.iterations_ago
+        acc[couple.pretender_b_id][couple.pretender_a_id] = couple.iterations_ago
+      end
 
       acc
     end
