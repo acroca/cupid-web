@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402014132) do
+ActiveRecord::Schema.define(:version => 20120402020550) do
+
+  create_table "couples", :force => true do |t|
+    t.integer  "pretender_a_id",                :null => false
+    t.integer  "pretender_b_id",                :null => false
+    t.integer  "iterations_ago", :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "pretenders", :force => true do |t|
     t.string   "name"
