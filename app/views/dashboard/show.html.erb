@@ -16,17 +16,15 @@
           <% if pretender.has_couple? || row_owner.has_couple? %>
             <td class='disabled'>-</td>
           <% elsif pretender == row_owner %>
-            <td>
-              <span class="solo">
-                <%= link_to 'solo', couples_path(couple: {pretender_a_id: row_owner.id}), method: :post %>
-              </span>
+            <td class='create-couple'>
+              <%= link_to 'solo', couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post, class: 'solo' %>
             </td>
           <% else %>
-            <% ago = pretender.iterations_ago_with(row_owner) || 'never' %>
-            <td>
-              <span class="ago ago_<%= ago %>">
-                <%= link_to ago, couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post %>
-              </span>
+            <% ago = pretender.iterations_ago_with(row_owner) || '-' %>
+            <td class='create-couple'>
+              <%= link_to couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post do %>
+                <span class="ago"><%= ago %></span>
+              <% end %>
             </td>
           <% end %>
         <% end %>
