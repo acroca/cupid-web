@@ -1,0 +1,12 @@
+<h1>Pretender</h1>
+
+<p>
+  <b>Name</b><br>
+  <%= @pretender.name %>
+</p>
+
+<div class="form-actions">
+  <%= link_to 'Back', pretenders_path, :class => 'btn'  %>
+  <%= link_to 'Edit', edit_pretender_path(@pretender), :class => 'btn' %>
+  <%= link_to 'Delete', pretender_path(@pretender), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+</div>

@@ -1,4 +1,7 @@
 CupidWeb::Application.routes.draw do
+  root to: "pretenders#index"
+  resources :pretenders
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

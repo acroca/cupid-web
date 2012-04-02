@@ -1,0 +1,26 @@
+<h1>Pretenders</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pretenders.each do |pretender| %>
+      <tr>
+        <td><%= pretender.id %></td>
+        <td><%= link_to pretender.name, pretender_path(pretender) %></td>
+        <td><%= pretender.created_at %></td>
+        <td>
+          <%= link_to 'Edit', edit_pretender_path(pretender), :class => 'btn btn-mini' %>
+          <%= link_to 'Destroy', pretender_path(pretender), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New', new_pretender_path, :class => 'btn btn-primary' %>
