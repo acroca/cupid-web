@@ -13,8 +13,14 @@
       <tr>
         <th><%= link_to row_owner.name, row_owner %></th>
         <% @pretenders.each do |pretender| %>
-          <% if pretender == row_owner || pretender.has_couple? || row_owner.has_couple? %>
+          <% if pretender.has_couple? || row_owner.has_couple? %>
             <td class='disabled'>-</td>
+          <% elsif pretender == row_owner %>
+            <td>
+              <span class="solo">
+                <%= link_to 'solo', couples_path(couple: {pretender_a_id: row_owner.id}), method: :post %>
+              </span>
+            </td>
           <% else %>
             <% ago = pretender.iterations_ago_with(row_owner) || 'never' %>
             <td>
@@ -35,8 +41,11 @@
   <% @couples.each do |couple| %>
     <li>
       <%= couple.pretender_a.name %>
-      &
-      <%= couple.pretender_b.name %>
+      <% if couple.pretender_b %>
+        &amp; <%= couple.pretender_b.name %>
+      <% else %>
+        (Solo)
+      <% end %>
     </li>
   <% end %>
 </ul>

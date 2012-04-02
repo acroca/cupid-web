@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Couple do
+
+  it 'support couples of one member, for soloing' do
+    couple = FactoryGirl.create(:couple, pretender_b: nil)
+    couple.should be_valid
+  end
+
   describe "for_pretenders scope" do
     subject { Couple.for_pretenders(pretender_1, pretender_2) }
     let(:pretender_1) { FactoryGirl.create(:pretender) }
