@@ -25,4 +25,23 @@ describe Couple do
       it { should_not include(couple) }
     end
   end
+
+  describe "for_pretender scope" do
+    subject { Couple.for_pretender(pretender) }
+    let(:pretender) { FactoryGirl.create(:pretender) }
+
+    context 'as pretender a' do
+      let!(:couple) { FactoryGirl.create(:couple, pretender_a: pretender) }
+      it { should include(couple) }
+    end
+    context 'as pretender b' do
+      let!(:couple) { FactoryGirl.create(:couple, pretender_b: pretender) }
+      it { should include(couple) }
+    end
+
+    context 'both are not the expected pretender' do
+      let!(:couple) { FactoryGirl.create(:couple) }
+      it { should_not include(couple) }
+    end
+  end
 end

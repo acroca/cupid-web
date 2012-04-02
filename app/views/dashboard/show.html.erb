@@ -1,3 +1,4 @@
+<h2>Pretenders</h2>
 <table class='table dashboard'>
   <thead>
     <tr>
@@ -18,7 +19,7 @@
             <% ago = pretender.iterations_ago_with(row_owner) || 'never' %>
             <td>
               <span class="ago ago_<%= ago %>">
-                <%= link_to ago, couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post %>
+                <%= link_to_unless pretender.has_couple? || row_owner.has_couple?, ago, couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post %>
               </span>
             </td>
           <% end %>
@@ -27,3 +28,14 @@
     <% end %>
   </tbody>
 </table>
+
+<h2>Current couples</h2>
+<ul>
+  <% @couples.each do |couple| %>
+    <li>
+      <%= couple.pretender_a.name %>
+      &
+      <%= couple.pretender_b.name %>
+    </li>
+  <% end %>
+</ul>

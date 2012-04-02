@@ -5,8 +5,10 @@ class Couple < ActiveRecord::Base
   belongs_to :pretender_b, class_name: "Pretender"
 
   scope :for_pretenders, lambda { |pretender_1, pretender_2|
+    for_pretender(pretender_1).for_pretender(pretender_2)
+  }
+  scope :for_pretender, lambda { |pretender|
     t = arel_table
-    where(t[:pretender_a_id].eq(pretender_1.id).or(t[:pretender_b_id].eq(pretender_1.id))).
-      where(t[:pretender_a_id].eq(pretender_2.id).or(t[:pretender_b_id].eq(pretender_2.id)))
+    where(t[:pretender_a_id].eq(pretender.id).or(t[:pretender_b_id].eq(pretender.id)))
   }
 end

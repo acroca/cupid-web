@@ -19,4 +19,25 @@ describe Pretender do
       it { should == 1 }
     end
   end
+
+  describe '#has_couple?' do
+    subject { pretender.has_couple? }
+    let(:pretender) { FactoryGirl.create(:pretender) }
+
+    it { should be_false }
+
+    context "with a couple as pretender a" do
+      before { FactoryGirl.create(:couple, pretender_a: pretender) }
+      it { should be_true }
+    end
+    context "with a couple as pretender b" do
+      before { FactoryGirl.create(:couple, pretender_b: pretender) }
+      it { should be_true }
+    end
+    context "with a couple from an older iteration" do
+      before { FactoryGirl.create(:couple, pretender_a: pretender, iterations_ago: 1) }
+      it { should be_false }
+    end
+
+  end
 end
