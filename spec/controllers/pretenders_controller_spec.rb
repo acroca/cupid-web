@@ -20,13 +20,6 @@ require 'spec_helper'
 
 describe PretendersController do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Pretender. As you add validations to Pretender, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    {}
-  end
-  
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # PretendersController. Be sure to keep this updated too.
@@ -36,15 +29,15 @@ describe PretendersController do
 
   describe "GET index" do
     it "assigns all pretenders as @pretenders" do
-      pretender = Pretender.create! valid_attributes
+      pretender = FactoryGirl.create(:pretender)
       get :index, {}, valid_session
-      assigns(:pretenders).should eq([pretender])
+      assigns(:pretenders).should include(pretender)
     end
   end
 
   describe "GET show" do
     it "assigns the requested pretender as @pretender" do
-      pretender = Pretender.create! valid_attributes
+      pretender = FactoryGirl.create(:pretender)
       get :show, {:id => pretender.to_param}, valid_session
       assigns(:pretender).should eq(pretender)
     end
@@ -59,7 +52,7 @@ describe PretendersController do
 
   describe "GET edit" do
     it "assigns the requested pretender as @pretender" do
-      pretender = Pretender.create! valid_attributes
+      pretender = FactoryGirl.create(:pretender)
       get :edit, {:id => pretender.to_param}, valid_session
       assigns(:pretender).should eq(pretender)
     end
@@ -69,18 +62,18 @@ describe PretendersController do
     describe "with valid params" do
       it "creates a new Pretender" do
         expect {
-          post :create, {:pretender => valid_attributes}, valid_session
+          post :create, {:pretender => FactoryGirl.attributes_for(:pretender)}, valid_session
         }.to change(Pretender, :count).by(1)
       end
 
       it "assigns a newly created pretender as @pretender" do
-        post :create, {:pretender => valid_attributes}, valid_session
+        post :create, {:pretender => FactoryGirl.attributes_for(:pretender)}, valid_session
         assigns(:pretender).should be_a(Pretender)
         assigns(:pretender).should be_persisted
       end
 
       it "redirects to the created pretender" do
-        post :create, {:pretender => valid_attributes}, valid_session
+        post :create, {:pretender => FactoryGirl.attributes_for(:pretender)}, valid_session
         response.should redirect_to(Pretender.last)
       end
     end
@@ -105,7 +98,7 @@ describe PretendersController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested pretender" do
-        pretender = Pretender.create! valid_attributes
+        pretender = FactoryGirl.create(:pretender)
         # Assuming there are no other pretenders in the database, this
         # specifies that the Pretender created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -115,21 +108,21 @@ describe PretendersController do
       end
 
       it "assigns the requested pretender as @pretender" do
-        pretender = Pretender.create! valid_attributes
-        put :update, {:id => pretender.to_param, :pretender => valid_attributes}, valid_session
+        pretender = FactoryGirl.create(:pretender)
+        put :update, {:id => pretender.to_param, :pretender => FactoryGirl.attributes_for(:pretender)}, valid_session
         assigns(:pretender).should eq(pretender)
       end
 
       it "redirects to the pretender" do
-        pretender = Pretender.create! valid_attributes
-        put :update, {:id => pretender.to_param, :pretender => valid_attributes}, valid_session
+        pretender = FactoryGirl.create(:pretender)
+        put :update, {:id => pretender.to_param, :pretender => FactoryGirl.attributes_for(:pretender)}, valid_session
         response.should redirect_to(pretender)
       end
     end
 
     describe "with invalid params" do
       it "assigns the pretender as @pretender" do
-        pretender = Pretender.create! valid_attributes
+        pretender = FactoryGirl.create(:pretender)
         # Trigger the behavior that occurs when invalid params are submitted
         Pretender.any_instance.stub(:save).and_return(false)
         put :update, {:id => pretender.to_param, :pretender => {}}, valid_session
@@ -137,7 +130,7 @@ describe PretendersController do
       end
 
       it "re-renders the 'edit' template" do
-        pretender = Pretender.create! valid_attributes
+        pretender = FactoryGirl.create(:pretender)
         # Trigger the behavior that occurs when invalid params are submitted
         Pretender.any_instance.stub(:save).and_return(false)
         put :update, {:id => pretender.to_param, :pretender => {}}, valid_session
@@ -148,14 +141,14 @@ describe PretendersController do
 
   describe "DELETE destroy" do
     it "destroys the requested pretender" do
-      pretender = Pretender.create! valid_attributes
+      pretender = FactoryGirl.create(:pretender)
       expect {
         delete :destroy, {:id => pretender.to_param}, valid_session
       }.to change(Pretender, :count).by(-1)
     end
 
     it "redirects to the pretenders list" do
-      pretender = Pretender.create! valid_attributes
+      pretender = FactoryGirl.create(:pretender)
       delete :destroy, {:id => pretender.to_param}, valid_session
       response.should redirect_to(pretenders_url)
     end
