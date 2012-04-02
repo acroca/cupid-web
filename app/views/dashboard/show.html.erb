@@ -14,13 +14,13 @@
         <th><%= link_to row_owner.name, row_owner %></th>
         <% @pretenders.each do |pretender| %>
           <% if pretender.has_couple? || row_owner.has_couple? %>
-            <td class='disabled'>-</td>
+            <td class='disabled'></td>
           <% elsif pretender == row_owner %>
             <td class='create-couple'>
               <%= link_to 'solo', couples_path(couple: {pretender_a_id: pretender.id}), method: :post, class: 'solo' %>
             </td>
           <% else %>
-            <% ago = pretender.iterations_ago_with(row_owner) || '-' %>
+            <% ago = pretender.iterations_ago_with(row_owner) %>
             <td class='create-couple'>
               <%= link_to couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post do %>
                 <span class="ago"><%= ago %></span>

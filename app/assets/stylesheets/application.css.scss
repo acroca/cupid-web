@@ -11,7 +11,7 @@
  *= require_self
  *= require_tree .
 */
-
+@import "bourbon";
 
 table.dashboard{
   th{
@@ -20,26 +20,22 @@ table.dashboard{
   }
   td, th{
     text-align: center;
-    &.create-couple {
-      a {
-        text-shadow: rgba(0, 0, 0, 0.9) 0px 1px 3px;
-        color: white;
-        width: 30px;
-        line-height: 30px;
-
-        display: inline-block;
-        padding: 1px 5px;
-      }
-    }
 
     &.ok a, a.solo {
-      background-color: #0074CC;
+      @include button(#0074CC);
     }
     &.bad a {
-      background-color: #FAA732;
+      @include button(#FAA732);
     }
     &.urgent a {
-      background-color: #DA4F49;
+      @include button(#DA4F49);
+    }
+
+    &.create-couple {
+      a {
+        width: 25px;
+        display: inline-block;
+      }
     }
   }
 
