@@ -1,0 +1,24 @@
+<table class='table'>
+  <thead>
+    <tr>
+      <th></th>
+      <% @pretenders.each do |pretender| %>
+        <th><%= pretender.name %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pretenders.each_with_index do |row_owner| %>
+      <tr>
+        <th><%= row_owner.name %></th>
+        <% @pretenders.each do |pretender| %>
+          <% if pretender == row_owner %>
+            <td class='disabled'>-</td>
+          <% else %>
+            <td>0</td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

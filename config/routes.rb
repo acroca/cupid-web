@@ -1,5 +1,5 @@
 CupidWeb::Application.routes.draw do
-  root to: "pretenders#index"
+  root to: "dashboard#show"
   resources :pretenders
 
   # The priority is based upon order of creation:
