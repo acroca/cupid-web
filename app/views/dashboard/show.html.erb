@@ -17,7 +17,7 @@
             <td class='disabled'>-</td>
           <% elsif pretender == row_owner %>
             <td class='create-couple'>
-              <%= link_to 'solo', couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post, class: 'solo' %>
+              <%= link_to 'solo', couples_path(couple: {pretender_a_id: pretender.id}), method: :post, class: 'solo' %>
             </td>
           <% else %>
             <% ago = pretender.iterations_ago_with(row_owner) || '-' %>
