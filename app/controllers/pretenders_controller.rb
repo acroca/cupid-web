@@ -45,7 +45,7 @@ class PretendersController < ApplicationController
 
     respond_to do |format|
       if @pretender.save
-        format.html { redirect_to @pretender, notice: 'Pretender was successfully created.' }
+        format.html { redirect_to pretenders_url, notice: 'Pretender was successfully created.' }
         format.json { render json: @pretender, status: :created, location: @pretender }
       else
         format.html { render action: "new" }

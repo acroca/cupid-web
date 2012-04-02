@@ -83,7 +83,7 @@ describe PretendersController do
 
       it "redirects to the created pretender" do
         post :create, {:pretender => FactoryGirl.attributes_for(:pretender)}, valid_session
-        response.should redirect_to(Pretender.last)
+        response.should redirect_to(pretenders_url)
       end
     end
 
