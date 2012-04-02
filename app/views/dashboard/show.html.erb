@@ -17,7 +17,9 @@
           <% else %>
             <% ago = pretender.iterations_ago_with(row_owner) || 'never' %>
             <td>
-              <span class="ago ago_<%= ago %>"><%= ago %></span>
+              <span class="ago ago_<%= ago %>">
+                <%= link_to ago, couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post %>
+              </span>
             </td>
           <% end %>
         <% end %>
