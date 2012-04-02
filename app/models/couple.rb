@@ -11,4 +11,21 @@ class Couple < ActiveRecord::Base
     t = arel_table
     where(t[:pretender_a_id].eq(pretender.id).or(t[:pretender_b_id].eq(pretender.id)))
   }
+
+  def self.all_iterations_ago
+    return Thread.current["all_iterations_ago"] if Thread.current["all_iterations_ago"].present?
+
+    last_couples = Couple.select('pretender_a_id, pretender_b_id, min(iterations_ago) as iterations_ago').group('pretender_a_id, pretender_b_id')
+    Thread.current["all_iterations_ago"] = last_couples.all.inject({}) do |acc, couple|
+      acc[couple.pretender_a_id] ||= {}
+      acc[couple.pretender_b_id] ||= {}
+      acc[couple.pretender_a_id][couple.pretender_b_id] ||= {}
+      acc[couple.pretender_b_id][couple.pretender_a_id] ||= {}
+
+      acc[couple.pretender_a_id][couple.pretender_b_id] = couple.iterations_ago
+      acc[couple.pretender_b_id][couple.pretender_a_id] = couple.iterations_ago
+
+      acc
+    end
+  end
 end

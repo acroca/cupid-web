@@ -50,4 +50,23 @@ describe Couple do
       it { should_not include(couple) }
     end
   end
+
+  describe "#all_iterations_ago" do
+
+    let(:pretender_1) { FactoryGirl.create(:pretender) }
+    let(:pretender_2) { FactoryGirl.create(:pretender) }
+
+    it 'contains the position for both pretenders' do
+      couple = FactoryGirl.create(:couple, pretender_a: pretender_1, pretender_b: pretender_2)
+      Couple.all_iterations_ago[pretender_1.id].should == {pretender_2.id => couple.iterations_ago}
+    end
+
+    it 'returns the recent iterations ago' do
+      FactoryGirl.create(:couple, pretender_a: pretender_1, pretender_b: pretender_2, iterations_ago: 4)
+      FactoryGirl.create(:couple, pretender_a: pretender_1, pretender_b: pretender_2, iterations_ago: 1)
+      FactoryGirl.create(:couple, pretender_a: pretender_1, pretender_b: pretender_2, iterations_ago: 3)
+
+      Couple.all_iterations_ago[pretender_1.id].should == {pretender_2.id => 1}
+    end
+  end
 end
