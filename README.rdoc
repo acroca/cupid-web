@@ -4,3 +4,6 @@ Cupid is a tool that lets you manage your pairs for pair programming. Each of th
 
 In the home page you will see a dashboard with a table with all the combinations of pretenders. Click on the cell of the two pretenders to assign them as a couple.
 
+== Demo
+
+http://web-cupid.herokuapp.com/
