@@ -1,4 +1,4 @@
-<table class='table'>
+<table class='table dashboard'>
   <thead>
     <tr>
       <th></th>
@@ -15,7 +15,10 @@
           <% if pretender == row_owner %>
             <td class='disabled'>-</td>
           <% else %>
-            <td><%= pretender.iterations_ago_with(row_owner) || "never" %></td>
+            <% ago = pretender.iterations_ago_with(row_owner) || 'never' %>
+            <td>
+              <span class="ago ago_<%= ago %>"><%= ago %></span>
+            </td>
           <% end %>
         <% end %>
       </tr>
