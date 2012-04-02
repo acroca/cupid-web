@@ -35,4 +35,18 @@ describe CouplesController do
       end
     end
   end
+
+  describe "POST round" do
+    it "redirects to the dashboard" do
+      post :round, {}, valid_session
+      response.should redirect_to(root_path)
+    end
+
+    it "increments all couples iterations_ago" do
+      couple = FactoryGirl.create(:couple)
+      expect{
+        post :round, {}, valid_session
+      }.to change{couple.reload.iterations_ago}.by(1)
+    end
+  end
 end

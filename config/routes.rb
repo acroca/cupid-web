@@ -1,7 +1,11 @@
 CupidWeb::Application.routes.draw do
   root to: "dashboard#show"
   resources :pretenders
-  resources :couples, only: [:create]
+  resources :couples, only: [:create] do
+    collection do
+      post :round
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

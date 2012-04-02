@@ -4,22 +4,22 @@
     <tr>
       <th></th>
       <% @pretenders.each do |pretender| %>
-        <th><%= pretender.name %></th>
+        <th><%= link_to pretender.name, pretender %></th>
       <% end %>
     </tr>
   </thead>
   <tbody>
     <% @pretenders.each_with_index do |row_owner| %>
       <tr>
-        <th><%= row_owner.name %></th>
+        <th><%= link_to row_owner.name, row_owner %></th>
         <% @pretenders.each do |pretender| %>
-          <% if pretender == row_owner %>
+          <% if pretender == row_owner || pretender.has_couple? || row_owner.has_couple? %>
             <td class='disabled'>-</td>
           <% else %>
             <% ago = pretender.iterations_ago_with(row_owner) || 'never' %>
             <td>
               <span class="ago ago_<%= ago %>">
-                <%= link_to_unless pretender.has_couple? || row_owner.has_couple?, ago, couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post %>
+                <%= link_to ago, couples_path(couple: {pretender_a_id: row_owner.id, pretender_b_id: pretender.id}), method: :post %>
               </span>
             </td>
           <% end %>
@@ -29,7 +29,8 @@
   </tbody>
 </table>
 
-<h2>Current couples</h2>
+<h2>Current couples <%= link_to "Next iteration!", round_couples_path, method: 'post' %></h2>
+
 <ul>
   <% @couples.each do |couple| %>
     <li>
