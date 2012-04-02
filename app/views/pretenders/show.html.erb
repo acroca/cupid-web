@@ -5,6 +5,15 @@
   <%= @pretender.name %>
 </p>
 
+<h2>Previous couples</h2>
+<ul>
+  <% @couples.each do |couple| %>
+    <li>
+      <b><%= couple.pretender_a == @pretender ? couple.pretender_b.name : couple.pretender_a.name %></b> (<%= couple.iterations_ago %> iterations ago)
+    </li>
+  <% end %>
+</ul>
+
 <div class="form-actions">
   <%= link_to 'Back', pretenders_path, :class => 'btn'  %>
   <%= link_to 'Edit', edit_pretender_path(@pretender), :class => 'btn' %>

@@ -14,6 +14,7 @@ class PretendersController < ApplicationController
   # GET /pretenders/1.json
   def show
     @pretender = Pretender.find(params[:id])
+    @couples = Couple.for_pretender(@pretender).order(:iterations_ago)
 
     respond_to do |format|
       format.html # show.html.erb

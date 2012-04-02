@@ -41,6 +41,15 @@ describe PretendersController do
       get :show, {:id => pretender.to_param}, valid_session
       assigns(:pretender).should eq(pretender)
     end
+
+    it "assigns the couples for the pretender on @couples" do
+      pretender = FactoryGirl.create(:pretender)
+      couple_1 = FactoryGirl.create(:couple, pretender_a: pretender)
+      couple_2 = FactoryGirl.create(:couple, pretender_b: pretender)
+      FactoryGirl.create(:couple)
+      get :show, {:id => pretender.to_param}, valid_session
+      assigns(:couples).should eq([couple_1, couple_2])
+    end
   end
 
   describe "GET new" do
