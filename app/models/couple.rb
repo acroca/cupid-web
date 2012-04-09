@@ -18,11 +18,11 @@ class Couple < ActiveRecord::Base
     last_couples = Couple.select('pretender_a_id, pretender_b_id, min(iterations_ago) as iterations_ago').group('pretender_a_id, pretender_b_id')
     Thread.current["all_iterations_ago"] = last_couples.all.inject({}) do |acc, couple|
       acc[couple.pretender_a_id] ||= {}
-      acc[couple.pretender_b_id] ||= {}
+      acc[couple.pretender_b_id] ||= {} if couple.pretender_b_id
 
       if acc[couple.pretender_a_id][couple.pretender_b_id].nil? || couple.iterations_ago < acc[couple.pretender_a_id][couple.pretender_b_id].to_i
         acc[couple.pretender_a_id][couple.pretender_b_id] = couple.iterations_ago
-        acc[couple.pretender_b_id][couple.pretender_a_id] = couple.iterations_ago
+        acc[couple.pretender_b_id][couple.pretender_a_id] = couple.iterations_ago if couple.pretender_b_id
       end
 
       acc

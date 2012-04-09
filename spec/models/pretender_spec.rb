@@ -38,7 +38,24 @@ describe Pretender do
       before { FactoryGirl.create(:couple, pretender_a: pretender, iterations_ago: 1) }
       it { should be_false }
     end
+  end
 
+  describe ".any_single?" do
+    before { Pretender.delete_all }
+    let!(:pretender) { FactoryGirl.create(:pretender) }
+    subject { Pretender.any_single? }
+
+    it { should be_true }
+
+    context "with a couple" do
+      before { FactoryGirl.create(:couple, pretender_a: pretender) }
+      it { should be_false }
+    end
+
+    context "soloing" do
+      before { FactoryGirl.create(:couple, pretender_a: pretender, pretender_b: nil) }
+      it { should be_false }
+    end
   end
 
   describe "default order" do

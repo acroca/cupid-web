@@ -15,7 +15,9 @@ class CouplesController < ApplicationController
 
   # POST /couples/round
   def round
-    Couple.update_all("iterations_ago = iterations_ago + 1")
+    unless Pretender.any_single?
+      Couple.update_all("iterations_ago = iterations_ago + 1")
+    end
     redirect_to root_path
   end
 end

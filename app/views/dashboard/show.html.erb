@@ -33,7 +33,7 @@
   </tbody>
 </table>
 
-<h2>Current couples <%= link_to "Next iteration!", round_couples_path, method: 'post' %></h2>
+<h2>Current couples <%= link_to "Next iteration!", round_couples_path, method: 'post' unless Pretender.any_single? %></h2>
 
 <ul>
   <% @couples.each do |couple| %>

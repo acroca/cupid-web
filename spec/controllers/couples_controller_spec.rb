@@ -48,5 +48,15 @@ describe CouplesController do
         post :round, {}, valid_session
       }.to change{couple.reload.iterations_ago}.by(1)
     end
+
+    context "some pretenders doesn't have couple" do
+      before { Pretender.stub(:any_single?).and_return(true) }
+      it "doesn't increment any iteration" do
+        couple = FactoryGirl.create(:couple)
+        expect{
+          post :round, {}, valid_session
+        }.to_not change{couple.reload.iterations_ago}
+      end
+    end
   end
 end

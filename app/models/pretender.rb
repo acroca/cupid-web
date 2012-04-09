@@ -14,4 +14,9 @@ class Pretender < ActiveRecord::Base
     return false if all_iterations.blank?
     all_iterations.values.min == 0
   end
+
+  def self.any_single?
+    return true if Pretender.count != Couple.all_iterations_ago.keys.size
+    Couple.all_iterations_ago.values.any? { |it_ago| !it_ago.values.include?(0) }
+  end
 end
