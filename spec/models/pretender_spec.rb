@@ -1,6 +1,16 @@
 require 'spec_helper'
 
 describe Pretender do
+  describe ".enabled" do
+    let(:enabled) { FactoryGirl.create(:pretender, disabled: false) }
+    let(:disabled) { FactoryGirl.create(:pretender, disabled: true) }
+    
+    subject { Pretender.enabled }
+    
+    it { should include(enabled) }
+    it { should_not include(disabled) }
+  end
+
   describe '#iterations_ago_with' do
     subject { main_pretender.iterations_ago_with(couple.pretender_b) }
 
@@ -47,6 +57,11 @@ describe Pretender do
 
     it { should be_true }
 
+    context "disabled" do
+      before { pretender.update_attributes disabled: true }
+      it { should be_false }
+    end
+
     context "with a couple" do
       before { FactoryGirl.create(:couple, pretender_a: pretender) }
       it { should be_false }
@@ -56,6 +71,7 @@ describe Pretender do
       before { FactoryGirl.create(:couple, pretender_a: pretender, pretender_b: nil) }
       it { should be_false }
     end
+
   end
 
   describe "default order" do

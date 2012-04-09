@@ -5,6 +5,11 @@
   <%= @pretender.name %>
 </p>
 
+<p>
+  <b>Disabled</b><br>
+  <%= @pretender.disabled? ? "Yes" : "No" %>
+</p>
+
 <h2>Previous couples</h2>
 <ul>
   <% @couples.each do |couple| %>

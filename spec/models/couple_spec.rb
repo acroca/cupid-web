@@ -7,6 +7,19 @@ describe Couple do
     couple.should be_valid
   end
 
+  describe "without_disabled_pretenders" do
+    subject { Couple.without_disabled_pretenders }
+    let(:pretender) { FactoryGirl.create(:pretender) }
+    let!(:couple) { FactoryGirl.create(:couple, pretender_a: pretender) }
+    
+    it { should include(couple) }
+
+    context "disabled pretender" do
+      let(:pretender) { FactoryGirl.create(:pretender, disabled: true) }
+      it { should_not include(couple) }
+    end
+  end
+
   describe "for_pretenders scope" do
     subject { Couple.for_pretenders(pretender_1, pretender_2) }
     let(:pretender_1) { FactoryGirl.create(:pretender) }
@@ -76,6 +89,13 @@ describe Couple do
 
       Couple.all_iterations_ago[pretender_1.id].should == {pretender_2.id => 1}
       Couple.all_iterations_ago[pretender_2.id].should == {pretender_1.id => 1}
+    end
+
+    it 'does not include disabled pretenders' do
+      pretender = FactoryGirl.create(:pretender, disabled: true)
+      FactoryGirl.create(:couple, pretender_a: pretender_1, pretender_b: pretender, iterations_ago: 1)
+
+      Couple.all_iterations_ago.keys.should_not include(pretender.id)
     end
   end
 end

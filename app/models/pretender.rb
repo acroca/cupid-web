@@ -1,6 +1,7 @@
 class Pretender < ActiveRecord::Base
-  attr_accessible :name
+  attr_accessible :name, :disabled
 
+  scope :enabled, where(disabled: false)
   default_scope order("name ASC")
 
   def iterations_ago_with(pretender)
@@ -16,7 +17,7 @@ class Pretender < ActiveRecord::Base
   end
 
   def self.any_single?
-    return true if Pretender.count != Couple.all_iterations_ago.keys.size
+    return true if Pretender.enabled.count != Couple.all_iterations_ago.keys.size
     Couple.all_iterations_ago.values.any? { |it_ago| !it_ago.values.include?(0) }
   end
 end

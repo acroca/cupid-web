@@ -4,6 +4,7 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
+      <th>Disabled</th>
       <th>Created at</th>
       <th>Actions</th>
     </tr>
@@ -13,6 +14,7 @@
       <tr>
         <td><%= pretender.id %></td>
         <td><%= link_to pretender.name, pretender_path(pretender) %></td>
+        <td><%= pretender.disabled? ? "Yes" : "No" %></td>
         <td><%= pretender.created_at %></td>
         <td>
           <%= link_to 'Edit', edit_pretender_path(pretender), :class => 'btn btn-mini' %>

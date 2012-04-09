@@ -9,6 +9,13 @@
       </div>
     </div>
 
+    <div class="control-group">
+      <%= f.label :disabled, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.check_box :disabled %>
+      </div>
+    </div>
+
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to 'Cancel', pretenders_path, :class => 'btn' %>
