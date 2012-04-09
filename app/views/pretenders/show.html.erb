@@ -9,7 +9,7 @@
 <ul>
   <% @couples.each do |couple| %>
     <li>
-      <b><%= couple.pretender_a == @pretender ? couple.pretender_b.name : couple.pretender_a.name %></b> (<%= couple.iterations_ago %> iterations ago)
+      <b><%= partner_name(couple, @pretender) %></b> (<%= couple.iterations_ago %> iterations ago)
     </li>
   <% end %>
 </ul>
