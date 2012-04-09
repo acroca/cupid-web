@@ -4,7 +4,6 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Disabled</th>
       <th>Created at</th>
       <th>Actions</th>
     </tr>
@@ -13,11 +12,21 @@
     <% @pretenders.each do |pretender| %>
       <tr>
         <td><%= pretender.id %></td>
-        <td><%= link_to pretender.name, pretender_path(pretender) %></td>
-        <td><%= pretender.disabled? ? "Yes" : "No" %></td>
+        <td>
+          <% if pretender.disabled? %>
+            <i class="icon-off"></i>
+          <% end %>
+          <%= link_to pretender.name, pretender_path(pretender) %>
+        </td>
         <td><%= pretender.created_at %></td>
         <td>
           <%= link_to 'Edit', edit_pretender_path(pretender), :class => 'btn btn-mini' %>
+
+          <% if pretender.disabled? %>
+            <%= link_to 'Enable', pretender_path(pretender, pretender: {disabled: false}), :class => 'btn btn-mini btn-info', method: :put %>
+          <% else %>
+            <%= link_to 'Disable', pretender_path(pretender, pretender: {disabled: true}), :class => 'btn btn-mini btn-warning', method: :put %>
+          <% end %>
           <%= link_to 'Destroy', pretender_path(pretender), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>

@@ -122,10 +122,10 @@ describe PretendersController do
         assigns(:pretender).should eq(pretender)
       end
 
-      it "redirects to the pretender" do
+      it "redirects to the index page" do
         pretender = FactoryGirl.create(:pretender)
         put :update, {:id => pretender.to_param, :pretender => FactoryGirl.attributes_for(:pretender)}, valid_session
-        response.should redirect_to(pretender)
+        response.should redirect_to(pretenders_url)
       end
     end
 

@@ -61,7 +61,7 @@ class PretendersController < ApplicationController
 
     respond_to do |format|
       if @pretender.update_attributes(params[:pretender])
-        format.html { redirect_to @pretender, notice: 'Pretender was successfully updated.' }
+        format.html { redirect_to pretenders_url, notice: 'Pretender was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
