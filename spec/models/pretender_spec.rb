@@ -40,4 +40,13 @@ describe Pretender do
     end
 
   end
+
+  describe "default order" do
+    it "orders by name" do
+      p1 = FactoryGirl.create(:pretender, name: "A")
+      p2 = FactoryGirl.create(:pretender, name: "Z")
+      p3 = FactoryGirl.create(:pretender, name: "M")
+      Pretender.where(id: [p1.id, p2.id, p3.id]).map(&:name).should == ["A", "M", "Z"]
+    end
+  end
 end

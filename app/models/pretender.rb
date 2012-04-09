@@ -1,6 +1,8 @@
 class Pretender < ActiveRecord::Base
   attr_accessible :name
 
+  default_scope order("name ASC")
+
   def iterations_ago_with(pretender)
     all_iterations = Couple.all_iterations_ago[self.id]
     return nil if all_iterations.blank?
