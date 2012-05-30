@@ -13,6 +13,12 @@ class CouplesController < ApplicationController
     end
   end
 
+  # DELETE /couples/destroy
+  def destroy
+    Couple.where(id: params[:id], iterations_ago: 0).destroy_all
+    redirect_to root_path
+  end
+
   # POST /couples/round
   def round
     unless Pretender.any_single?

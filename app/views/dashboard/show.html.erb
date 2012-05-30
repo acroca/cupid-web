@@ -56,6 +56,8 @@
       <% else %>
         (Solo)
       <% end %>
+
+      <%= link_to "(remove)", couple_path(couple), method: :delete %>
     </li>
   <% end %>
 </ul>

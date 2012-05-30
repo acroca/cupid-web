@@ -36,6 +36,32 @@ describe CouplesController do
     end
   end
 
+  describe "DELETE destroy" do
+  
+    let(:couple) { FactoryGirl.create(:couple) }
+
+    it "destroys the couple" do
+      expect{
+        delete :destroy, id: couple.id
+      }.to change{ Couple.where(id: couple.id).first }.from(couple).to(nil)
+    end
+
+    it "redirects to the dashboard" do
+      delete :destroy, id: couple.id
+      response.should redirect_to(root_path)
+    end
+  
+    context "when delete a couple of the previous round" do
+      let(:couple) { FactoryGirl.create(:couple, iterations_ago: 1) }
+
+      it "doesn't destroys the couple" do
+        expect{
+          delete :destroy, id: couple.id
+        }.to_not change{ Couple.where(id: couple.id).first }
+      end  
+    end
+  end
+
   describe "POST round" do
     it "redirects to the dashboard" do
       post :round, {}, valid_session
@@ -47,6 +73,13 @@ describe CouplesController do
       expect{
         post :round, {}, valid_session
       }.to change{couple.reload.iterations_ago}.by(1)
+    end
+
+    it "sets everyone free" do
+      FactoryGirl.create(:pretender, reserved: true)
+      Pretender.stub(:any_single?).and_return(false)
+      post :round, {}
+      Pretender.where(reserved: true).count.should == 0
     end
 
     context "some pretenders doesn't have couple" do

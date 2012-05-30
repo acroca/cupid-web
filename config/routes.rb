@@ -5,7 +5,7 @@ CupidWeb::Application.routes.draw do
       put :toggle_reserved
     end
   end
-  resources :couples, only: [:create] do
+  resources :couples, only: [:create, :destroy] do
     collection do
       post :round
     end
