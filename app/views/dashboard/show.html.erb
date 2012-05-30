@@ -3,6 +3,7 @@
   <thead>
     <tr>
       <th></th>
+      <th></th>
       <% @pretenders.each do |pretender| %>
         <th><%= link_to pretender.name, pretender %></th>
       <% end %>
@@ -11,9 +12,20 @@
   <tbody>
     <% @pretenders.each_with_index do |row_owner| %>
       <tr>
+        <th>
+          <%= link_to toggle_reserved_pretender_path(row_owner), :method => :put, :class => (row_owner.reserved? ? "reserved" : "free") do %>
+            <% if row_owner.reserved? %>
+              unreserve
+            <% else %>
+              reserve
+            <% end %>
+          <% end %>
+        </th>
         <th><%= link_to row_owner.name, row_owner %></th>
         <% @pretenders.each do |pretender| %>
           <% if pretender.has_couple? || row_owner.has_couple? %>
+            <td class='disabled'></td>
+          <% elsif pretender.reserved? && row_owner.reserved? && pretender != row_owner %>
             <td class='disabled'></td>
           <% elsif pretender == row_owner %>
             <td class='create-couple'>

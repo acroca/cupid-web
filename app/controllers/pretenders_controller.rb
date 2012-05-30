@@ -81,4 +81,12 @@ class PretendersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def toggle_reserved
+    @pretender = Pretender.find(params[:id])
+
+    @pretender.update_attribute :reserved, !@pretender.reserved?
+
+    redirect_to root_path
+  end
 end

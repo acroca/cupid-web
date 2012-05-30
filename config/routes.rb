@@ -1,6 +1,10 @@
 CupidWeb::Application.routes.draw do
   root to: "dashboard#show"
-  resources :pretenders
+  resources :pretenders do
+    member do
+      put :toggle_reserved
+    end
+  end
   resources :couples, only: [:create] do
     collection do
       post :round

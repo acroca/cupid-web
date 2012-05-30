@@ -17,6 +17,7 @@ class CouplesController < ApplicationController
   def round
     unless Pretender.any_single?
       Couple.update_all("iterations_ago = iterations_ago + 1")
+      Pretender.update_all(reserved: false)
     end
     redirect_to root_path
   end

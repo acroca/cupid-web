@@ -163,4 +163,18 @@ describe PretendersController do
     end
   end
 
+  describe "PUT toggle_reserved" do
+    it "toggles the reserved bit of pretender" do
+      pretender = FactoryGirl.create(:pretender)
+      expect {
+        put :toggle_reserved, {:id => pretender.to_param}
+      }.to change{ pretender.reload.reserved }.from(false).to(true)
+    end
+
+    it 'redirects back to the dashboard' do
+      pretender = FactoryGirl.create(:pretender)
+      put :toggle_reserved, {:id => pretender.to_param}
+      response.should redirect_to root_path
+    end
+  end
 end

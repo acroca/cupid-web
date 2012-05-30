@@ -40,3 +40,12 @@ table.dashboard{
   }
 
 }
+.reserved, .free { 
+  font-size: 0.8em;
+}
+.reserved { 
+  color: red;
+}
+.free {
+  color: green;
+}

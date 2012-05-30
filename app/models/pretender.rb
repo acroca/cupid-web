@@ -1,5 +1,5 @@
 class Pretender < ActiveRecord::Base
-  attr_accessible :name, :disabled
+  attr_accessible :name, :disabled, :reserved
 
   scope :enabled, where(disabled: false)
   default_scope order("name ASC")
